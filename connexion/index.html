@@ -6,14 +6,22 @@
   <title>Connexion · CarbuGo</title>
   <!-- Retour du lien de connexion reçu par e-mail (Supabase › Authentication › URL Configuration › Site URL).
        Le serveur ajoute « ?code=… » (lien valide) ou « ?error=… » (lien expiré ou déjà utilisé). Le code ne sert
-       qu'à l'iPhone qui a demandé le lien (PKCE) : le bouton le rend à CarbuGo, qui termine la connexion.
+       qu'à l'iPhone qui a demandé le lien (PKCE) : le bouton le rend à CarbuGo, qui termine la connexion ;
+       sur un ordinateur, un code QR à scanner avec l'iPhone fait la même chose.
        Jamais d'ouverture automatique de l'app : sans elle, Safari afficherait « adresse non valide ». -->
   <meta name="robots" content="noindex">
   <meta name="referrer" content="no-referrer">
   <link rel="icon" type="image/png" href="../assets/favicon-64.png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <link rel="stylesheet" href="../assets/style.css?v=2">
-  <style>[hidden] { display: none !important; }</style>
+  <style>
+    [hidden] { display: none !important; }
+    /* Code QR : toujours sur fond blanc, même en mode sombre, pour que l'appareil photo le lise. */
+    .qr { text-align: center; }
+    .qr-code { display: inline-block; padding: 14px; background: #FFFFFF; border-radius: 16px; line-height: 0; }
+    .qr-code svg { width: 216px; height: 216px; }
+    .qr .small { margin-top: 14px; }
+  </style>
 </head>
 <body>
   <main class="doc">
@@ -27,10 +35,14 @@
     <div id="valide" hidden>
       <h1>Adresse e-mail vérifiée</h1>
       <p class="lead" data-iphone>Touchez le bouton pour revenir dans CarbuGo : vous serez connecté.</p>
-      <p class="lead" data-ailleurs hidden>Pour vous connecter, demandez un nouveau lien dans CarbuGo et touchez-le sur votre iPhone.</p>
+      <p class="lead" data-ailleurs hidden>Pour vous connecter, scannez ce code avec l’appareil photo de votre iPhone : CarbuGo s’ouvre, connecté.</p>
       <section class="card" data-iphone>
         <a class="button" id="ouvrir" href="carbugo://auth-callback">Ouvrir CarbuGo</a>
         <p class="small muted">Sur l’iPhone où vous avez demandé le lien.</p>
+      </section>
+      <section class="card qr" data-ailleurs hidden>
+        <div class="qr-code" id="qr" role="img" aria-label="Code QR de connexion à CarbuGo"></div>
+        <p class="small muted">Valable quelques minutes. Sinon, demandez un nouveau lien dans CarbuGo.</p>
       </section>
     </div>
 
@@ -52,6 +64,7 @@
     <p>CarbuGo · Yamin Alouache</p>
   </footer>
 
+  <script src="../assets/qrcode.min.js"></script>
   <script>
     (function () {
       var query = new URLSearchParams(location.search);
@@ -70,7 +83,22 @@
       block.querySelectorAll("[data-iphone]").forEach(function (element) { element.hidden = !iphone; });
       block.querySelectorAll("[data-ailleurs]").forEach(function (element) { element.hidden = iphone; });
       if (state === "valide") {
-        document.getElementById("ouvrir").href = "carbugo://auth-callback?code=" + encodeURIComponent(code);
+        var appURL = "carbugo://auth-callback?code=" + encodeURIComponent(code);
+        document.getElementById("ouvrir").href = appURL;
+        // E-mail ouvert sur un ordinateur : le code ne sert qu'à l'iPhone qui a demandé le lien (PKCE),
+        // l'appareil photo de l'iPhone le lui rend par ce QR.
+        if (!iphone) {
+          try {
+            var qr = qrcode(0, "M");
+            qr.addData(appURL);
+            qr.make();
+            document.getElementById("qr").innerHTML = qr.createSvgTag({ cellSize: 6, margin: 0, scalable: true });
+          } catch (error) {
+            block.querySelector(".qr").hidden = true;
+            block.querySelector("p[data-ailleurs]").textContent =
+              "Pour vous connecter, demandez un nouveau lien dans CarbuGo et touchez-le sur votre iPhone.";
+          }
+        }
       }
     })();
   </script>
