@@ -1,0 +1,116 @@
+/* CarbuGo — site d'assistance. Couleurs de l'app (shared/design-tokens.json), police système, aucun service tiers. */
+:root {
+  color-scheme: light dark;
+  --green: #069C48;
+  --green-fill: #069C48;
+  --ink: #0A1116;
+  --secondary: #5E6A66;
+  --bg: #FFFFFF;
+  --surface: #F2F4F3;
+  --border: #E6E9E7;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --green: #1BC862;
+    --green-fill: #15A553;
+    --ink: #F2F5F3;
+    --secondary: #9BA6A1;
+    --bg: #000000;
+    --surface: #1C1F1E;
+    --border: #2F3431;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+main, footer { max-width: 680px; margin: 0 auto; padding: 0 20px; }
+
+a { color: var(--green); }
+
+.brand {
+  display: flex; align-items: center; gap: 14px;
+  padding: 36px 0 8px;
+  color: var(--ink); text-decoration: none;
+}
+.brand img { width: 56px; height: 56px; border-radius: 13px; }
+.brand span { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; }
+
+.hero { padding: 40px 0 8px; }
+.hero img { width: 104px; height: 104px; border-radius: 24px; display: block; }
+.hero .name { margin: 14px 0 0; font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+
+h1 {
+  margin: 28px 0 14px;
+  font-size: clamp(30px, 7vw, 44px); line-height: 1.12; font-weight: 800; letter-spacing: -0.03em;
+}
+h2 { margin: 0 0 10px; font-size: 22px; line-height: 1.25; letter-spacing: -0.01em; }
+h3 { margin: 28px 0 6px; font-size: 18px; letter-spacing: -0.01em; }
+
+.lead { margin: 0; font-size: 19px; color: var(--secondary); }
+.muted { color: var(--secondary); }
+.small { font-size: 15px; }
+
+.card {
+  margin: 36px 0;
+  padding: 26px 24px;
+  background: var(--surface);
+  border-radius: 20px;
+}
+.card p { margin: 0 0 18px; }
+.card p:last-child { margin-bottom: 0; }
+
+.eyebrow {
+  margin: 0 0 6px;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--green);
+}
+
+.button {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; min-height: 54px; padding: 0 22px;
+  background: var(--green-fill); color: #FFFFFF;
+  border-radius: 16px;
+  font-weight: 600; font-size: 17px; text-decoration: none;
+}
+.button:hover { filter: brightness(1.06); }
+.button + p { margin-top: 14px; }
+@media (min-width: 600px) { .button { width: auto; display: inline-flex; } }
+
+.steps { margin: 12px 0 0; padding: 0; list-style: none; counter-reset: step; }
+.steps li { position: relative; margin: 0 0 14px; padding-left: 44px; min-height: 30px; }
+.steps li::before {
+  counter-increment: step; content: counter(step);
+  position: absolute; left: 0; top: -1px;
+  width: 30px; height: 30px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--green-fill); color: #FFFFFF; font-size: 15px; font-weight: 700;
+}
+
+.doc h1 { font-size: clamp(28px, 6vw, 38px); }
+.doc .lead { margin-bottom: 30px; }
+.doc section { padding: 6px 0; border-top: 1px solid var(--border); margin-top: 26px; }
+.doc section:first-of-type { border-top: 0; margin-top: 0; }
+.doc section.card { padding: 26px 24px; margin: 30px 0; border-top: 0; }
+.doc ul { padding-left: 22px; }
+.doc li { margin: 6px 0; }
+
+footer {
+  margin-top: 56px; padding-top: 22px; padding-bottom: 44px;
+  border-top: 1px solid var(--border);
+  font-size: 14px; color: var(--secondary);
+}
+footer nav { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-bottom: 10px; }
+footer nav a { color: var(--secondary); text-decoration: none; }
+footer nav a:hover, footer nav a[aria-current="page"] { color: var(--ink); }
+footer p { margin: 0; }
