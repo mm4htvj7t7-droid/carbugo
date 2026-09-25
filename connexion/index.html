@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Connexion · CarbuGo</title>
+  <!-- Retour du lien de connexion reçu par e-mail (Supabase › Authentication › URL Configuration › Site URL).
+       Le serveur ajoute « ?code=… » (lien valide) ou « ?error=… » (lien expiré ou déjà utilisé). Le code ne sert
+       qu'à l'iPhone qui a demandé le lien (PKCE) : le bouton le rend à CarbuGo, qui termine la connexion.
+       Jamais d'ouverture automatique de l'app : sans elle, Safari afficherait « adresse non valide ». -->
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <link rel="icon" type="image/png" href="../assets/favicon-64.png">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/style.css?v=2">
+  <style>[hidden] { display: none !important; }</style>
+</head>
+<body>
+  <main class="doc">
+    <a class="brand" href="../"><img src="../assets/carbugo-256.png" alt="" width="56" height="56"><span>CarbuGo</span></a>
+
+    <div id="neutre">
+      <h1>Connexion à CarbuGo</h1>
+      <p class="lead">Cette page s’affiche après le lien de connexion reçu par e-mail. Pour vous connecter, ouvrez CarbuGo sur votre iPhone : Plus › Mon compte.</p>
+    </div>
+
+    <div id="valide" hidden>
+      <h1>Adresse e-mail vérifiée</h1>
+      <p class="lead" data-iphone>Touchez le bouton pour revenir dans CarbuGo : vous serez connecté.</p>
+      <p class="lead" data-ailleurs hidden>Pour vous connecter, demandez un nouveau lien dans CarbuGo et touchez-le sur votre iPhone.</p>
+      <section class="card" data-iphone>
+        <a class="button" id="ouvrir" href="carbugo://auth-callback">Ouvrir CarbuGo</a>
+        <p class="small muted">Sur l’iPhone où vous avez demandé le lien.</p>
+      </section>
+    </div>
+
+    <div id="expire" hidden>
+      <h1>Ce lien ne fonctionne plus</h1>
+      <p class="lead">Il a expiré ou a déjà été utilisé. Dans CarbuGo, demandez un nouveau lien, puis touchez le dernier e-mail reçu.</p>
+      <section class="card" data-iphone>
+        <a class="button" href="carbugo://">Ouvrir CarbuGo</a>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <nav aria-label="Liens utiles">
+      <a href="../assistance/">Assistance</a>
+      <a href="../confidentialite/">Politique de confidentialité</a>
+      <a href="../suppression-compte/">Suppression de compte</a>
+    </nav>
+    <p>CarbuGo · Yamin Alouache</p>
+  </footer>
+
+  <script>
+    (function () {
+      var query = new URLSearchParams(location.search);
+      var hash = new URLSearchParams(location.hash.slice(1));
+      var code = query.get("code") || "";
+      var failed = ["error", "error_code", "error_description"].some(function (key) { return query.has(key) || hash.has(key); });
+      // Le code n'a rien à faire dans l'historique ni dans une capture d'écran : il reste seulement dans le bouton.
+      if (location.search || location.hash) history.replaceState(null, "", location.pathname);
+
+      var iphone = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+      var state = failed ? "expire" : (/^[A-Za-z0-9-]{8,128}$/.test(code) ? "valide" : "neutre");
+      if (state === "neutre") return;
+      document.getElementById("neutre").hidden = true;
+      var block = document.getElementById(state);
+      block.hidden = false;
+      block.querySelectorAll("[data-iphone]").forEach(function (element) { element.hidden = !iphone; });
+      block.querySelectorAll("[data-ailleurs]").forEach(function (element) { element.hidden = iphone; });
+      if (state === "valide") {
+        document.getElementById("ouvrir").href = "carbugo://auth-callback?code=" + encodeURIComponent(code);
+      }
+    })();
+  </script>
+</body>
+</html>
