@@ -65,7 +65,12 @@
       <p>Les autres utilisateurs voient le signalement (station, information signalée, date, nombre de confirmations), jamais son auteur.</p>
 
       <h3>Les statistiques anonymes</h3>
-      <p>Si l’option est activée (elle l’est par défaut, et se désactive dans Plus › Réglages), CarbuGo envoie de simples compteurs, additionnés pour tous les utilisateurs : utilisation de l’app (par jour, semaine et mois, avec le nombre de jours depuis la précédente utilisation), installations, version de l’app, compte connecté ou non, recherches, fiches de station ouvertes, « Y aller » (et le choix affiché : Meilleur choix, Moins cher ou Plus proche), trajets « Sur ma route », alertes prix créées, favoris ajoutés, carburant principal, erreurs de chargement. Ces compteurs ne contiennent aucun identifiant, ni votre position, vos recherches, vos destinations, vos stations ou vos favoris. Pour éviter les envois abusifs, une empreinte calculée à partir de l’adresse IP est gardée environ 2 jours, séparément des compteurs.</p>
+      <p>Si l’option est activée (elle l’est par défaut, et se désactive dans Plus › Réglages), CarbuGo envoie deux choses, qui servent seulement à mesurer l’usage de l’app :</p>
+      <ul>
+        <li>Une fois par jour d’utilisation, un identifiant d’installation tiré au hasard, sans lien avec votre iPhone, votre identité ou votre compte (ce n’est ni l’identifiant publicitaire, ni un numéro de série), avec la version de l’app, votre carburant principal et si un compte est connecté (oui ou non). Il sert uniquement à ne compter chaque installation qu’une fois par jour, par semaine et par mois. Le serveur n’en garde que le premier et le dernier jour d’utilisation. Il est renouvelé tous les 13 mois, effacé de votre iPhone si vous désactivez l’option, et effacé du serveur après 13 mois sans utilisation.</li>
+        <li>De simples compteurs, sans aucun identifiant : recherches, fiches de station ouvertes, « Y aller » (et le choix affiché : Meilleur choix, Moins cher ou Plus proche), trajets « Sur ma route », alertes prix créées, favoris ajoutés, erreurs de chargement.</li>
+      </ul>
+      <p>Ni votre position, ni vos recherches, destinations, stations ou favoris ne sont envoyés. Les résultats ne sont que des totaux, additionnés pour tous les utilisateurs. Pour éviter les envois abusifs, une empreinte calculée à partir de l’adresse IP est gardée environ 2 jours, séparément.</p>
 
       <h3>Les services d’Apple</h3>
       <p>La carte, la recherche d’adresse et les itinéraires utilisent les services de cartographie d’Apple (Plans). Pour calculer un itinéraire, votre point de départ est envoyé à Apple : arrondi à environ 1 km pour le Meilleur choix, exact pour « Sur ma route ». Le texte que vous tapez pour chercher un lieu est envoyé à Apple pour afficher des suggestions. Ces données sont traitées par Apple selon sa propre politique de confidentialité : nous n’y avons pas accès.</p>
@@ -91,6 +96,7 @@
         <li>Signalements et réponses : un signalement n’est plus affiché 24 heures après sa dernière confirmation (12 heures pour une fermeture) ; il est ensuite supprimé du serveur lors du nettoyage suivant (au plus tôt 48 heures après). Tous sont effacés si vous supprimez votre compte.</li>
         <li>Profil de contributeur (niveau de fiabilité, compteurs) : jusqu’à la suppression de votre compte.</li>
         <li>Statistiques : uniquement des totaux par jour, sans lien avec une personne.</li>
+        <li>Identifiant d’installation : effacé du serveur après 13 mois sans utilisation.</li>
       </ul>
     </section>
 
