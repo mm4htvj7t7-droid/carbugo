@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Connexion · CarbuGo</title>
+  <title>Connexion · Carbu Plus</title>
   <!-- Retour du lien de connexion reçu par e-mail (Supabase › Authentication › URL Configuration › Site URL).
        Le serveur ajoute « ?code=… » (lien valide) ou « ?error=… » (lien expiré ou déjà utilisé). Le code ne sert
        qu'à l'iPhone qui a demandé le lien (PKCE) : le bouton le rend à CarbuGo, qui termine la connexion ;
@@ -25,32 +25,32 @@
 </head>
 <body>
   <main class="doc">
-    <a class="brand" href="../"><img src="../assets/carbugo-256.png" alt="" width="56" height="56"><span>CarbuGo</span></a>
+    <a class="brand" href="../"><img src="../assets/carbugo-256.png" alt="" width="56" height="56"><span>Carbu Plus</span></a>
 
     <div id="neutre">
-      <h1>Connexion à CarbuGo</h1>
-      <p class="lead">Cette page s’affiche après le lien de connexion reçu par e-mail. Pour vous connecter, ouvrez CarbuGo sur votre iPhone : Plus › Mon compte.</p>
+      <h1>Connexion à Carbu Plus</h1>
+      <p class="lead">Cette page s’affiche après le lien de connexion reçu par e-mail. Pour vous connecter, ouvrez Carbu Plus sur votre iPhone : Plus › Mon compte.</p>
     </div>
 
     <div id="valide" hidden>
       <h1>Adresse e-mail vérifiée</h1>
-      <p class="lead" data-iphone>Touchez le bouton pour revenir dans CarbuGo : vous serez connecté.</p>
-      <p class="lead" data-ailleurs hidden>Pour vous connecter, scannez ce code avec l’appareil photo de votre iPhone : CarbuGo s’ouvre, connecté.</p>
+      <p class="lead" data-iphone>Touchez le bouton pour revenir dans Carbu Plus : vous serez connecté.</p>
+      <p class="lead" data-ailleurs hidden>Pour vous connecter, scannez ce code avec l’appareil photo de votre iPhone : Carbu Plus s’ouvre, connecté.</p>
       <section class="card" data-iphone>
-        <a class="button" id="ouvrir" href="carbugo://auth-callback">Ouvrir CarbuGo</a>
+        <a class="button" id="ouvrir" href="carbugo://auth-callback">Ouvrir Carbu Plus</a>
         <p class="small muted">Sur l’iPhone où vous avez demandé le lien.</p>
       </section>
       <section class="card qr" data-ailleurs hidden>
-        <div class="qr-code" id="qr" role="img" aria-label="Code QR de connexion à CarbuGo"></div>
-        <p class="small muted">Valable quelques minutes. Sinon, demandez un nouveau lien dans CarbuGo.</p>
+        <div class="qr-code" id="qr" role="img" aria-label="Code QR de connexion à Carbu Plus"></div>
+        <p class="small muted">Valable quelques minutes. Sinon, demandez un nouveau lien dans Carbu Plus.</p>
       </section>
     </div>
 
     <div id="expire" hidden>
       <h1>Ce lien ne fonctionne plus</h1>
-      <p class="lead">Il a expiré ou a déjà été utilisé. Dans CarbuGo, demandez un nouveau lien, puis touchez le dernier e-mail reçu.</p>
+      <p class="lead">Il a expiré ou a déjà été utilisé. Dans Carbu Plus, demandez un nouveau lien, puis touchez le dernier e-mail reçu.</p>
       <section class="card" data-iphone>
-        <a class="button" href="carbugo://">Ouvrir CarbuGo</a>
+        <a class="button" href="carbugo://">Ouvrir Carbu Plus</a>
       </section>
     </div>
   </main>
@@ -61,7 +61,7 @@
       <a href="../confidentialite/">Politique de confidentialité</a>
       <a href="../suppression-compte/">Suppression de compte</a>
     </nav>
-    <p>CarbuGo · Yamin Alouache</p>
+    <p>Carbu Plus · Yamin Alouache</p>
   </footer>
 
   <script src="../assets/qrcode.min.js"></script>
@@ -96,7 +96,7 @@
           } catch (error) {
             block.querySelector(".qr").hidden = true;
             block.querySelector("p[data-ailleurs]").textContent =
-              "Pour vous connecter, demandez un nouveau lien dans CarbuGo et touchez-le sur votre iPhone.";
+              "Pour vous connecter, demandez un nouveau lien dans Carbu Plus et touchez-le sur votre iPhone.";
           }
         }
       }
